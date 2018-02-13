@@ -1,105 +1,116 @@
+# Introduction
 
 Perl6 supports the three most popular programming paradigms:
++ Object-Oriented
++ Functional
++ Procedural
 
-    Object-Oriented
-    Functional
-    Procedural
+Perl 6 is a **high-level**, **general-purpose**, **gradually typed** language.
+Its motto is:
+> *TMTOWTDI (Pronounced Tim Toady): There is more than one way to do it.*
 
+> *Easy things should stay easy, hard things should get easier, and impossible things should get hard.*
 
+# Installing Perl 6
+## Linux
+To install Rakudo Star, which includes release 2018.01 of the Rakudo Perl 6
+compiler, version 2018.01 MoarVM, plus various modules, documentation,
+and other resources collected from the Perl 6 community, run the following commands from your terminal:
 
-    Perl 6 is a high-level, general-purpose, gradually typed language. Perl 6 is multi-paradigmatic. It supports Procedural, Object Oriented, and Functional programming.
-    Perl 6 motto:
+~~~shell
+wget https://rakudo.perl6.org/downloads/star/rakudo-star-2018.01.tar.gz
+tar xfz rakudo-star-2018.01.tar.gz
+cd rakudo-star-2018.01
+perl Configure.pl --gen-moar --prefix /opt/rakudo-star-2018.01
+make install
+~~~
 
-        TMTOWTDI (Pronounced Tim Toady): There is more than one way to do it.
+For other options, go to http://rakudo.org/how-to-get-rakudo/#Installing-Rakudo-Star-Linux
+macOS. Four options are available:
 
-        Easy things should stay easy, hard things should get easier, and impossible things should get hard.
++ Follow the same steps listed for installing on Linux
 
-        Installing Perl 6
-       Linux
++ Install with homebrew: `brew install rakudo-star`
 
-       To install Rakudo Star, run the following commands from your terminal:
++ Install with MacPorts: `sudo port install rakudo`
 
-       wget https://rakudo.perl6.org/downloads/star/rakudo-star-2018.01.tar.gz
-       tar xfz rakudo-star-2018.01.tar.gz
-       cd rakudo-star-2018.01
-       perl Configure.pl --gen-moar --prefix /opt/rakudo-star-2018.01
-       make install
++ Download the latest installer (file with .dmg extension) from https://rakudo.perl6.org/downloads/star/
 
-       For other options, go to http://rakudo.org/how-to-get-rakudo/#Installing-Rakudo-Star-Linux
-       macOS
+## Windows
+Download the latest installer (file with .msi extension) from https://rakudo.perl6.org/downloads/star/
+If your system architecture is 32-bit, download the x86 file; if it’s 64-bit, download the x86_64 file.
 
-       Four options are available:
-
-           Follow the same steps listed for installing on Linux
-
-           Install with homebrew: brew install rakudo-star
-
-           Install with MacPorts: sudo port install rakudo
-
-           Download the latest installer (file with .dmg extension) from https://rakudo.perl6.org/downloads/star/
-
-       Windows
-
-           Download the latest installer (file with .msi extension) from https://rakudo.perl6.org/downloads/star/
-           If your system architecture is 32-bit, download the x86 file; if it’s 64-bit, download the x86_64 file.
-
-           After installation, make sure C:\rakudo\bin is in the PATH
-
-       Docker
-
-           Get the official Docker image docker pull rakudo-star
-
-           Then run a container with the image docker run -it rakudo-star
+After installation, make sure C:\rakudo\bin is in the PATH
 
 
+Rakudo Star bundles a line editor that helps you get the most out of the REPL.
 
-           Rakudo Star bundles a line editor that helps you get the most out of the REPL.
+If you installed plain Rakudo instead of Rakudo Star then you probably don’t have line editing features enabled (using the up and down arrows for history, left and right to edit input, TAB completion). Consider running the following command and you shall be all set:
 
-           If you installed plain Rakudo instead of Rakudo Star then you probably don’t have line editing features enabled (using the up and down arrows for history, left and right to edit input, TAB completion). Consider running the following command and you shall be all set:
+ `zef install Linenoise` would work on Windows, Linux and macOS
 
-               zef install Linenoise would work on Windows, Linux and macOS
+ `zef install Readline` if you are on Linux and prefer the Readline library
 
-               zef install Readline if you are on Linux and prefer the Readline library
+ # Running Perl 6 code
 
-               say 'hello world';
+ Running Perl 6 code can be done using the REPL (Read-Eval-Print Loop). To do this, open a terminal, type perl6 into the terminal window, and hit [Enter]. This will cause a prompt of > to appear. Next, type a line of code and hit [Enter]. The REPL will print out the value of the line. You may then type another line, or type exit and hit [Enter] to leave the REPL.
 
-               that can also be written as:
+ Alternatively, write your code in a file, save it and run it. It is recommended that Perl 6 scripts have a .pl6 file name extension. Run the file by typing perl6 filename.pl6 into the terminal window and hitting [Enter]. Unlike the REPL, this will not automatically print the result of each line: the code must contain a statement like say to print output.
 
-               'hello world'.say;
+ The REPL is mostly used for trying a specific piece of code, typically a single line. For programs with more than a single line it is recommended to store them in a file and then run them.
 
+ Single lines may also be tried non-interactively on the command-line by typing perl6 -e 'your code here' and hitting [Enter].
 
+ For the examples, we will be using **GNU Emacs 24(GUI)**, by pressing Escape, x and then writing shell. Once that has been done, we just write perl6 and we are in! In order to use Unicode characters, we will have to press control+x+8+enter and then look for the desired character.
 
-               Perl 6 is free form: Most of the time you are free to use any amount of whitespace, although in certain cases whitespace carries meaning.
+# Operators
+>Perl 6 is **free form**: Most of the time you are free to use any amount of whitespace, although in certain cases whitespace carries meaning.
 
-               Statements are typically a logical line of code, they need to end with a semicolon: say "Hello" if True;
+>**Statements** are typically a logical line of code, `say "Indeed" if True` will return Indeed.
 
-               Expressions are a special type of statement that returns a value: 1+2 will return 3
+>**Expressions** are a special type of statement that returns a value: 1+2 will return 3. THey are made of **Terms** and **Operators**.
 
-               Expressions are made of Terms and Operators.
+>Terms are:
++ Variables: A value that can be manipulated and changed.
++ Literals: A constant value like a number or a string.
 
-               Terms are:
+Types of operators:
++ **Prefix**:
+  + **++**  
+  ~~~perl6
+  my $variable= "\c[GREEK SMALL LETTER ALPHA]"
+  =begin comment
+  That declaration is equivalent to:
+  my $variable= "α"
+  my $variable= 'α'
+  created by copying and pasting the symbol, or:
+  my $variable= "\x03B1"
+  using its codepoint
+  =end comment
+  ++$variable #This will return β
+  ~~~
 
-                   Variables: A value that can be manipulated and changed.
+  + **\--**
+  ~~~perl6
+  my $number= 'VII' # same as my $number= "\x2167" or my $number= "\c[ROMAN NUMERAL SEVEN]"
+  --$number #This will return VI
+  ~~~
 
-                   Literals: A constant value like a number or a string.
+  + **+** *Coerces the operand to a numeric value*
+  ~~~perl6
+  +"23" #Returns 23
+  +True #Returns 1
+  +False #Returns 0
+  ~~~
 
-               Operators are classified into types:
+  + **-** *Coerces the operand to a numeric value and returns the negation*
+  ~~~perl6
+  -"23" #Returns -23
+  -True #Returns -1
+  -False #Returns 0
+  ~~~
 
-               Type
-
-
-               Explanation
-
-
-               Example
-
-               Prefix
-
-
-               Before the term.
-
-
-               ++1
+  +
 
                Infix
 
@@ -298,6 +309,11 @@ Comments are divided into 3 types:
         In contrast, we can also create fixed-size arrays.
         These arrays cannot be accessed beyond their defined size.
 
+        say 'hello world';
+
+        that can also be written as:
+
+        'hello world'.say;
         To declare an array of fixed size, specify its maximum number of elements in square brackets immediately after its name:
 
         my @array[3];
@@ -1299,7 +1315,7 @@ Using the subset keyword, we created a type called Prime on the fly. It's a subs
 
 With that single line of code, we created a special type and can use it as if it were built-in! Not only can we use it to specify the type of variables, sub/method parameters and return values, but we can test arbitrary values against it with the smartmatch operator, just as we can with built-in types:
 
-subset Prime of Int where *.is-prime;
+subset Prime of Int where * .is-prime;
 
 say "It's an Int"  if 'foo' ~~ Int;   # false, it's a Str
 
@@ -1307,7 +1323,7 @@ say "It's a prime" if 31337 ~~ Prime; # true, it's a prime number
 
 Is your "type" a one-off thing you just want to apply to a single variable? You don't need to declare a separate subset at all! Just use the where keyword after the variable and you're good to go:
 
-multi is-a-prime (Int $ where *.is-prime --> 'Yup' ) {}
+multi is-a-prime (Int $ where * .is-prime --> 'Yup' ) {}
 
 multi is-a-prime (Any                    --> 'Nope') {}
 
@@ -1320,6 +1336,342 @@ say is-a-prime 4;     # Nope
 say is-a-prime 'foo'; # Nope
 
 The --> in the signature above is just another way to indicate the return type, or in this case, a concrete returned value. So we have two multies with different signatures. First one takes an Int that is a prime number and the second one takes everything else. With exactly zero code in the bodies of our multies we wrote a subroutine that can tell you whether a number is prime!!
+
+# Subroutines
+7.1. Definition
+
+Subroutines (also called subs or functions) are a means of packaging and reusing functionality.
+
+A subroutine definition begins with the keyword sub. After their definition, they can be called by their handle.
+Check out the below example:
+
+sub alien-greeting {
+ say "Hello earthlings";
+}
+
+alien-greeting;
+
+The previous example showcased a subroutine that doesn’t require any input.
+
+
+
+The below subroutine accepts a string argument.
+
+sub say-hello (Str $name) {
+    say "Hello " ~ $name ~ "!!!!"
+}
+say-hello "Paul";
+say-hello "Paula";
+
+
+
+It is possible to define multiple subroutines that have the same name but different signatures. When the subroutine is called, the runtime environment will decide which version to use based on the number and type of supplied arguments. This type of subroutine is defined the same way as normal subs except that we use the multi keyword instead of sub.
+
+multi greet($name) {
+    say "Good morning $name";
+}
+multi greet($name, $title) {
+    say "Good morning $title $name";
+}
+
+greet "Johnnie";
+greet "Laura","Mrs.";
+
+
+
+If a subroutine is defined to accept an argument, and we call it without providing it with the required argument, it will fail.
+
+Perl 6 provides us the ability to define subroutines with:
+
+    Optional Parameters
+
+    Default Parameters
+
+Optional parameters are defined by appending ? to the parameter name.
+
+sub say-hello($name?) {
+  with $name { say "Hello " ~ $name }
+  else { say "Hello Human" }
+}
+say-hello;
+say-hello("Laura");
+
+If the user doesn’t need to supply an argument, a default value can be defined.
+This is done by assigning a value to the parameter within the subroutine definition.
+
+sub say-hello($name="Matt") {
+  say "Hello " ~ $name;
+}
+say-hello;
+say-hello("Laura");
+
+
+
+All the subroutines we’ve seen so far do something — they display some text on the terminal.
+
+Sometimes, though, we execute a subroutine for its return value so we can use it later in the flow of our program.
+
+If a function is allowed to run through it’s block to the end, the last statement or expression will determine the return value.
+Implicit return
+
+sub squared ($x) {
+  $x ** 2;
+}
+say "7 squared is equal to " ~ squared(7);
+
+For the sake of clarity, it might be a good idea to explicitly specify what we want returned. This can be done using the return keyword.
+Explicit return
+
+sub squared ($x) {
+  return $x ** 2;
+}
+say "7 squared is equal to " ~ squared(7);
+
+Restricting return values
+
+In one of the previous examples, we saw how we can restrict the accepted argument to be of a certain type. The same can be done with return values.
+
+To restrict the return value to a certain type, we either use the returns trait or the arrow notation --> in the signature.
+Using the returns trait
+
+sub squared ($x) returns Int {
+  return $x ** 2;
+}
+say "1.2 squared is equal to " ~ squared(1.2);
+
+Using the arrow
+
+sub squared ($x --> Int) {
+  return $x ** 2;
+}
+say "1.2 squared is equal to " ~ squared(1.2);
+
+If we fail to provide a return value that matches the type constraint, an error will be thrown.
+
+Type check failed for return value; expected Int but got Rat (1.44)
+
+
+
+
+Not only can type constraints control the type of the return value; they can also control its definedness.
+
+In the previous examples, we specified that the return value should be an Int.
+
+We could also have specified that the returned Int should be strictly defined or undefined using the following signatures:
+-→ Int:D and -→ Int:U
+
+That being said, it is good practice to use those type constraints.
+Below is the modified version of the previous example that uses :D to force the returned Int to be defined.
+
+sub squared ($x --> Int:D) {
+  return $x ** 2;
+}
+say "1.2 squared is equal to " ~ squared(1.2);
+
+Chaining
+
+In Perl 6, methods can be chained, so you’re not required to pass the result of one method to another as an argument.
+
+To illustrate: Given an array, you may need to return the unique values of the array, sorted from biggest to smallest.
+
+Here’s a non-chained solution:
+
+my @array = <7 8 9 0 1 2 4 3 5 6 7 8 9>;
+my @final-array = reverse(sort(unique(@array)));
+say @final-array;
+
+Here, we call unique on @array, pass the result as an argument to sort, and then pass that result to reverse.
+
+In contrast, with chained methods, the above example can be rewritten as:
+
+my @array = <7 8 9 0 1 2 4 3 5 6 7 8 9>;
+my @final-array = @array.unique.sort.reverse;
+say @final-array;
+
+You can already see that chaining methods is easier on the eye.
+
+
+Hyper operator
+
+The hyper operator >>. will call a method on all elements of a list and return a list of the results.
+
+my @array = <0 1 2 3 4 5 6 7 8 9 10>;
+sub is-even($var) { $var %% 2 };
+
+say @array>>.is-prime;
+say @array>>.&is-even;
+
+Using the hyper operator we can call methods already defined in Perl 6, e.g. is-prime that tells us if a number is prime or not.
+In addition we can define new subroutines and call them using the hyper operator. In this case we have to prepend & to the name of the method; e.g., &is-even.
+
+This is very practical as it relieves us from writing a for loop to iterate over each value.
+
+
+
+Lazy list built using a deduced generator
+
+my $lazylist = (0,2 ... 10);
+say $lazylist;
+
+The initial elements are 0 and 2 and the endpoint is 10. No generator was defined, but using the initial elements, Perl 6 will deduce that the generator is (+2)
+This lazy list may return (if requested) the following elements (0, 2, 4, 6, 8, 10)
+Lazy list built using a defined generator
+
+my $lazylist = (0, { $_ + 3 } ... 12);
+say $lazylist;
+
+In this example, we defined explicitly a generator enclosed in { }
+This lazy list may return (if requested) the following elements (0, 3, 6, 9, 12)
+
+
+When using an explicit generator, the endpoint must be one of the values that the generator can return.
+If we reproduce the above example with the endpoint being 10 instead of 12, it will not stop. The generator jumps over the endpoint.
+
+Alternatively you can replace 0 …​ 10 with 0 …​^ * > 10
+You can read it as: From 0 until the first value greater than 10 (excluding it)
+
+# Classes and objects
+class Human {
+  has $.name;
+  has $.age;
+  has $.sex;
+  has $.nationality;
+}
+
+my $john = Human.new(name => 'John', age => 23, sex => 'M', nationality => 'American');
+say $john;
+
+The class keyword is used to define a class.
+The has keyword is used to define attributes of a class.
+The .new() method is called a constructor. It creates the object as an instance of the class it has been called on.
+
+In the above script, a new variable $john holds a reference to a new instance of "Human" defined by Human.new().
+The arguments passed to the .new() method are used to set the attributes of the underlying object.
+
+A class can be given lexical scope using my:
+
+my class Human {
+
+}
+
+
+
+Encapsulation is facilitated in Perl 6 with the use of twigils.
+Twigils are secondary sigils. They come between the sigil and the attribute name.
+Two twigils are used in classes:
+
+    ! is used to explicitly declare that the attribute is private.
+
+    . is used to automatically generate an accessor for the attribute.
+
+By default, all attributes are private but it is a good habit to always use the ! twigil.
+
+Therefore, we should rewrite the above class as:
+
+class Human {
+  has $!name;
+  has $!age;
+  has $!sex;
+  has $!nationality;
+}
+
+my $john = Human.new(name => 'John', age => 23, sex => 'M', nationality => 'American');
+say $john;
+
+Append to the script the following statement: say $john.age;
+It will return this error: Method 'age' not found for invocant of class 'Human' because $!age is private and can only be used within the object. Trying to access it outside the object will return an error.
+
+Now replace has $!age with has $.age and observe the result of say $john.age;
+
+
+Named vs. Positional Parameters
+
+In Perl 6, all classes inherit a default .new() constructor.
+It can be used to create objects by providing it with arguments.
+The default constructor can only be provided with named arguments.
+In our example above, notice that the arguments supplied to .new() are defined by name:
+
+    name ⇒ 'John'
+
+    age ⇒ 23
+
+What if I do not want to supply the name of each attribute each time I want to create an object?
+Then I need to create another constructor that accepts positional arguments.
+
+class Human {
+  has $.name;
+  has $.age;
+  has $.sex;
+  has $.nationality;
+  # new constructor that overrides the default one.
+  method new ($name,$age,$sex,$nationality) {
+    self.bless(:$name,:$age,:$sex,:$nationality);
+  }
+}
+
+my $john = Human.new('John',23,'M','American');
+say $john;
+
+Using Unicode
+Let’s look at how we can output characters using Unicode
+
+say "a";
+say "\x0061";
+say "\c[LATIN SMALL LETTER A]";
+
+The above 3 lines showcase different ways of building a character:
+
+    Writing the character directly (grapheme)
+
+    Using \x and the code point
+
+    Using \c and the code point name
+
+Now lets output a smiley
+
+say "☺";
+say "\x263a";
+say "\c[WHITE SMILING FACE]";
+
+Another example combining two code points
+
+say "á";
+say "\x00e1";
+say "\x0061\x0301";
+say "\c[LATIN SMALL LETTER A WITH ACUTE]";
+
+The letter á can be written:
+
+    using its unique code point \x00e1
+
+    or as a combination of the code points of a and acute \x0061\x0301
+
+Some of the methods that can be used:
+
+say "á".NFC;
+say "á".NFD;
+say "á".uniname;
+
+Output
+
+NFC:0x<00e1>
+NFD:0x<0061 0301>
+LATIN SMALL LETTER A WITH ACUTE
+
+NFC returns the unique code point.
+NFD decomposes the character and return the code point of each part.
+uniname returns the code point name.
+Unicode letters can be used as identifiers:
+
+my $Δ = 1;
+$Δ++;
+say $Δ;
+
+Unicode can be used to do math:
+
+my $var = 2 + ⅒;
+say $var;
+
 
 
 
