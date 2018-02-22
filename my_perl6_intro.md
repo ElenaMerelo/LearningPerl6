@@ -61,17 +61,52 @@ $variable= "\x03C0"
 ~~~
 Por último, se pueden inicializar variables en bloque:
 ~~~perl6
-my (Str $a, Int $b, Rat $c)= <a 2 2.3>    #Si se igualaran a cosas de tipo distinto al incicado daría error. Se inicializan en orden, el primero con el primero, y así.
+my (Str $a, Int $b, Rat $c)= <a 2 2.3>    #Si se igualaran a cosas de tipo distinto al indicado daría error. Se inicializan en orden, el primero con el primero, y así.
+#De esta manera, a var_1 le corresponde 1, var_2 se corresponde con el Str "dos" y var_3 puede ser cualquier cosa, (Any)
+my ($var_1, $var_2, $var_3)= <1 "dos">  
+
 #Algunos métodos que podemos usar con los Rat:
 say $c.numerator    #23
 say $c.denominator    #10
 say $c.nude     #(23 10)
 ~~~
-say "bla bla bla" imprime bla bla bla. Como pasaba con los strings, pueden usarse también comillas simples, si no hay implícita en la frase o palabra otra comilla simple.
+`say "bla bla bla"` imprime bla bla bla. Como pasaba con los strings, pueden usarse también comillas simples, si no hay implícita en la frase o palabra otra comilla simple.
 ~~~perl6
 say 'something' ~ ' I am giving up on you'  #imprime: something I am giving up on you
 say "s'thing" ~ " I'm givin' up on you"    #imprime: s'thing I`m givin' up on you
 ~~~
+
+# Arrays
+Para declarar un array se hace igual que con las variables, pero en vez de **$** se utiliza el sigil **@**:
+~~~perl6
+#Creamos un array vacío
+my @array
+
+#Importante no olvidar poner @ para hacer mención al array creado!
+@array.elems    #Devuelve 0
+
+#Añadimos los números romanos uno, dos y tres al array (crece dinámicamente!)
+@array = 'Ⅰ', 'Ⅱ', 'Ⅲ'
+
+#Equivalente a poner los caracteres unicode sin comillas simples ni comas y entre los símbolos menor y mayor
+@array= < Ⅰ Ⅱ Ⅲ >
+
+#Otra forma de añadir elementos es usar la rutina push
+@array.push: 23
+
+#Se pueden añadir varias cosas a la vez, por ejemplo otros dos arrays:
+my @v2 = < a b >
+my @v3 = < 1  ☺ 2 ەﺎ >    #El nombre unicode de la carita feliz es WHITE SMILING FACE y el último es ARABIC LETTER ALEF FINAL FORM
+
+@array.push: @v2, @v3     # Returns [Ⅰ Ⅱ Ⅲ [a b] [1 ☺ 2 ەﺎ]]
+
+#El vector @v2 está ahora en la posición 3 del @array, @v3 en la posición cuarta. Por ejemplo si queremos que nos devuelva los elementos unidos de @v3:
+say @array[4].join    #1☺2ەﺎ
+#pop devuelve el último elemento del array y lo borra
+@array.pop    #Output: 23
+say @array    #[Ⅰ Ⅱ Ⅲ]
+
+
 
 
 
