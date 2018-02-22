@@ -102,9 +102,38 @@ my @v3 = < 1  ☺ 2 ەﺎ >    #El nombre unicode de la carita feliz es WHITE SM
 
 #El vector @v2 está ahora en la posición 3 del @array, @v3 en la posición cuarta. Por ejemplo si queremos que nos devuelva los elementos unidos de @v3:
 say @array[4].join    #1☺2ەﺎ
+
 #pop devuelve el último elemento del array y lo borra
-@array.pop    #Output: 23
-say @array    #[Ⅰ Ⅱ Ⅲ]
+@array.pop    #Igual que pop @array, devuelve [1 ☺ 2 ەﺎ], ya que éste es el último elemento
+say @array    #[Ⅰ Ⅱ Ⅲ [a b]]
+
+#Para añadir los elementos de @v2 ó @v3 directamente y no añadir los vectores se usa el método append:
+my @v1 = 1, 2, 3    #Como ya hemos visto, crea el vector [1 2 3]
+
+#Importante dejar espacio en blanco entre los dos puntos y el elemento a añadir!
+@v1.append: @v2     # Añade los elementos de @v2 a @v1 quedando [1 2 3 a b], no como push que habría añadido como elemento en la posición 3 el vector @v2
+~~~
+
+Para acceder al elemento en la posición 2 (se empieza a contar desde 0) de un array @a se haría simplemente `say '@a[2]'`. Si se intenta acceder a un elemento de fuera del vector devuelve (Any). Para añadir cualquier elemento en la posición 20, aunque el vector tenga tan solo 3 elementos se hace `@a[20] = "pudding"`, y los elementos intermedios los rellena con (Any):
+
+~~~perl6
+#Usando los vectores anteriormente declarados, teníamos que @v1 era [1 2 3 a b]
+@v1[15]= "pudding"    #Output: [1 2 3 a b (Any) (Any) (Any) (Any) (Any) (Any) (Any) (Any) (Any) (Any) pudding]
+
+#También se pueden hacer asignaciones múltiples, si queremos cambiar o añadir elementos en las posiciones 0 y 6:
+@v2[0,6] = 0,6
+say @v2               #Output: [0 b (Any) (Any) (Any) (Any) 6]
+#Una forma de recorrer el array sin usar for (Who needs fors anyway?) es con el hiperoperador >>
+@v3>>.say
+
+#Devuelve:
+1
+☺
+2
+ەﺎ
+~~~
+
+
 
 
 
