@@ -136,14 +136,22 @@ say @v2               #Output: [0 b (Any) (Any) (Any) (Any) 6]
 2
 ەﺎ
 ~~~
-Otros métodos aplicables a arrays son `shift`, que devuelve y elimina el primer elemento de un array, `clone` copia un array en otro, (`my @b = @a.clone` crearía un array @b igual a @a),... Todos ellos se pueden encontrar [aquí](https://docs.perl6.org/type/Array). Provenientes de la clase List hay unos métodos muy interesantes y útiles con los que ya podemos trabajar y hacer cosas muy chulas:
+Otros métodos aplicables a arrays son `shift`, que devuelve y elimina el primer elemento de un array, `clone` copia un array en otro, (`my @b = @a.clone` crearía un array @b igual a @a),... Todos ellos se pueden encontrar [aquí](https://docs.perl6.org/type/Array). Provenientes de la clase List hay unos métodos muy interesantes y útiles con los que ya podemos trabajar y hacer cosas muy chulas de forma compacta:
 >(List) routine map
 ~~~perl6
 say (elemento1, elemento2,...).map { .método }
 say map *.método, elemento1, elemento2,...
 ~~~
-Aplica el método, operación o lo que haya entre los corchetes a los elementos de la lista (en el primer caso), igual en el segundo caso, con * le indicamos que queremos se aplique a todos los elementos, y devuelve el resultado uno por uno en una secuencia.
+Aplica el método, operación o lo que haya entre los corchetes a los elementos de la lista. En el segundo caso, con * le indicamos que queremos que se aplique a todos los elementos, y devuelve el resultado uno por uno en una secuencia:
+~~~perl6
+# Con esta simple frase vemos cuáles de esos números son primos
+say (12, 17, 123457).map: { .is-prime }     #Output: (False True True)
 
+# El método tclc pone la primera letra de cada frase en mayúscula y el resto en minúscula
+say map *.tclc, "ISN'T PERL6", "lIkE sO aWeSoMe??", "indeed, indeed"      #Output: (Isn't perl6 Like so awesome?? Indeed, indeed)
+~~~
+
+>(List) routine grep
 
 
 
