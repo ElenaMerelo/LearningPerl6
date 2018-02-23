@@ -34,6 +34,7 @@ Si asignamos ahora un valor a la variable inicial, la información que obtenemos
 $variable= "algo"
 ?$variable    #True
 $variable.^name   #Str
+
 #Podemos convertir una variable a otra de tipo bool usando so
 $variable= so "not true"    #True, al ser un string no vacío
 $variable.WHAT    #(Bool)
@@ -49,6 +50,7 @@ $variable= 'α'
 ++$variable   #Devuelve β, perl6 reconoce qué caracter unicode es y procede según si es un número, ...
 $variable= 'ω'
 ++$variable   #Devuelve αα, e igualmente si declaramos la variable como αω al incrementar devolverá βα, le da una vuelta al alfabeto, no devuelve el siguiente caracter unicode según su code point
+
 #También podemos declarar variables booleanas
 $variable= False
 $variable= True   #la primera letra en mayúscula siempre!
@@ -62,6 +64,7 @@ $variable= "\x03C0"
 Por último, se pueden inicializar variables en bloque:
 ~~~perl6
 my (Str $a, Int $b, Rat $c)= <a 2 2.3>    #Si se igualaran a cosas de tipo distinto al indicado daría error. Se inicializan en orden, el primero con el primero, y así.
+
 #De esta manera, a var_1 le corresponde 1, var_2 se corresponde con el Str "dos" y var_3 puede ser cualquier cosa, (Any)
 my ($var_1, $var_2, $var_3)= <1 "dos">  
 
@@ -123,6 +126,7 @@ Para acceder al elemento en la posición 2 (se empieza a contar desde 0) de un a
 #También se pueden hacer asignaciones múltiples, si queremos cambiar o añadir elementos en las posiciones 0 y 6:
 @v2[0,6] = 0,6
 say @v2               #Output: [0 b (Any) (Any) (Any) (Any) 6]
+
 #Una forma de recorrer el array sin usar for (Who needs fors anyway?) es con el hiperoperador >>
 @v3>>.say
 
@@ -132,8 +136,13 @@ say @v2               #Output: [0 b (Any) (Any) (Any) (Any) 6]
 2
 ەﺎ
 ~~~
-
-
+Otros métodos aplicables a arrays son `shift`, que devuelve y elimina el primer elemento de un array, `clone` copia un array en otro, (`my @b = @a.clone` crearía un array @b igual a @a),... Todos ellos se pueden encontrar [aquí](https://docs.perl6.org/type/Array). Provenientes de la clase List hay unos métodos muy interesantes y útiles con los que ya podemos trabajar y hacer cosas muy chulas:
+>(List) routine map
+~~~perl6
+say (elemento1, elemento2,...).map { .método }
+say map *.método, elemento1, elemento2,...
+~~~
+Aplica el método, operación o lo que haya entre los corchetes a los elementos de la lista (en el primer caso), igual en el segundo caso, con * le indicamos que queremos se aplique a todos los elementos, y devuelve el resultado uno por uno en una secuencia.
 
 
 
